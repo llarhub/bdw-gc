@@ -37,180 +37,180 @@ const (
 	GC_NOT_FOUND = 4
 )
 
-type GC_EventType c.Uint
+type EventType c.Uint
 
 const (
 	// COLLECTION
-	GC_EVENT_START         GC_EventType = 0
-	GC_EVENT_MARK_START    GC_EventType = 1
-	GC_EVENT_MARK_END      GC_EventType = 2
-	GC_EVENT_RECLAIM_START GC_EventType = 3
-	GC_EVENT_RECLAIM_END   GC_EventType = 4
+	GC_EVENT_START         EventType = 0
+	GC_EVENT_MARK_START    EventType = 1
+	GC_EVENT_MARK_END      EventType = 2
+	GC_EVENT_RECLAIM_START EventType = 3
+	GC_EVENT_RECLAIM_END   EventType = 4
 	// COLLECTION
-	GC_EVENT_END GC_EventType = 5
+	GC_EVENT_END EventType = 5
 	// STOPWORLD_BEGIN
-	GC_EVENT_PRE_STOP_WORLD GC_EventType = 6
+	GC_EVENT_PRE_STOP_WORLD EventType = 6
 	// STOPWORLD_END
-	GC_EVENT_POST_STOP_WORLD GC_EventType = 7
+	GC_EVENT_POST_STOP_WORLD EventType = 7
 	// STARTWORLD_BEGIN
-	GC_EVENT_PRE_START_WORLD GC_EventType = 8
+	GC_EVENT_PRE_START_WORLD EventType = 8
 	// STARTWORLD_END
-	GC_EVENT_POST_START_WORLD   GC_EventType = 9
-	GC_EVENT_THREAD_SUSPENDED   GC_EventType = 10
-	GC_EVENT_THREAD_UNSUSPENDED GC_EventType = 11
+	GC_EVENT_POST_START_WORLD   EventType = 9
+	GC_EVENT_THREAD_SUSPENDED   EventType = 10
+	GC_EVENT_THREAD_UNSUSPENDED EventType = 11
 )
 
 // A portable type definition of time with a nanosecond precision.
-type GC_timeval_s struct {
+type TimevalS struct {
 	TvMs   c.Ulong
 	TvNsec c.Ulong
 }
 
 // should be removed from.
-type GC_prof_stats_s struct {
-	HeapsizeFull           GC_word
-	FreeBytesFull          GC_word
-	UnmappedBytes          GC_word
-	BytesAllocdSinceGc     GC_word
-	AllocdBytesBeforeGc    GC_word
-	NonGcBytes             GC_word
-	GcNo                   GC_word
-	MarkersM1              GC_word
-	BytesReclaimedSinceGc  GC_word
-	ReclaimedBytesBeforeGc GC_word
-	ExplFreedBytesSinceGc  GC_word
-	ObtainedFromOsBytes    GC_word
+type ProfStatsS struct {
+	HeapsizeFull           Word
+	FreeBytesFull          Word
+	UnmappedBytes          Word
+	BytesAllocdSinceGc     Word
+	AllocdBytesBeforeGc    Word
+	NonGcBytes             Word
+	GcNo                   Word
+	MarkersM1              Word
+	BytesReclaimedSinceGc  Word
+	ReclaimedBytesBeforeGc Word
+	ExplFreedBytesSinceGc  Word
+	ObtainedFromOsBytes    Word
 }
 
 // has no interest in the object, and a strong otherwise.
-type GC_ToggleRefStatus c.Uint
+type ToggleRefStatus c.Uint
 
 const (
-	GC_TOGGLE_REF_DROP   GC_ToggleRefStatus = 0
-	GC_TOGGLE_REF_STRONG GC_ToggleRefStatus = 1
-	GC_TOGGLE_REF_WEAK   GC_ToggleRefStatus = 2
+	GC_TOGGLE_REF_DROP   ToggleRefStatus = 0
+	GC_TOGGLE_REF_STRONG ToggleRefStatus = 1
+	GC_TOGGLE_REF_WEAK   ToggleRefStatus = 2
 )
 
 // On most platforms this contains just a single address.
-type GC_stack_base struct {
+type StackBase struct {
 	MemBase unsafe.Pointer
 }
 
 // preserved only for backward compatibility
-type GC_PTR uintptr
-type GC_word = c.Ulong
-type GC_signed_word = c.Long
+type PTR uintptr
+type Word = c.Ulong
+type SignedWord = c.Long
 
 // llgo:type C
-type GC_oom_func = func(_llcppg_param1 c.SizeT) unsafe.Pointer
+type OomFunc = func(_llcppg_param1 c.SizeT) unsafe.Pointer
 
 // llgo:type C
-type GC_on_heap_resize_proc = func(_llcppg_param1 GC_word)
+type OnHeapResizeProc = func(_llcppg_param1 Word)
 
 // Invoked to indicate progress through the
 //
 // llgo:type C
-type GC_on_collection_event_proc = func(_llcppg_param1 GC_EventType)
+type OnCollectionEventProc = func(_llcppg_param1 EventType)
 
 // llgo:type C
-type GC_finalizer_notifier_proc = func()
+type FinalizerNotifierProc = func()
 
 // collections are disabled), 1 if it succeeded.
 //
 // llgo:type C
-type GC_stop_func = func() c.Int
+type StopFunc = func() c.Int
 
 // probably nobody else agrees with it.     Hans-J. Boehm  3/13/92
 //
 // llgo:type C
-type GC_finalization_proc = func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
+type FinalizationProc = func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
 // held (but the "world" is running).
 //
 // llgo:type C
-type GC_toggleref_func = func(_llcppg_param1 unsafe.Pointer) GC_ToggleRefStatus
+type TogglerefFunc = func(_llcppg_param1 unsafe.Pointer) ToggleRefStatus
 
 // enqueued for finalization.
 //
 // llgo:type C
-type GC_await_finalize_proc = func(_llcppg_param1 unsafe.Pointer)
+type AwaitFinalizeProc = func(_llcppg_param1 unsafe.Pointer)
 
 // returned the old warn_proc value.
 //
 // llgo:type C
-type GC_warn_proc = func(_llcppg_param1 *c.Char, _llcppg_param2 GC_word)
+type WarnProc = func(_llcppg_param1 *c.Char, _llcppg_param2 Word)
 
 // compiled without SMALL_CONFIG.
 //
 // llgo:type C
-type GC_abort_func = func(_llcppg_param1 *c.Char)
+type AbortFunc = func(_llcppg_param1 *c.Char)
 
 // disguising them in this way, and may have other advantages.
-type GC_hidden_pointer = GC_word
+type HiddenPointer = Word
 
 // llgo:type C
-type GC_fn_type = func(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
+type FnType = func(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
 
 // llgo:type C
-type GC_stack_base_func = func(_llcppg_param1 *GC_stack_base, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
+type StackBaseFunc = func(_llcppg_param1 *StackBase, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
 
 // platform, might be called with the "world" stopped.
 //
 // llgo:type C
-type GC_has_static_roots_func = func(_llcppg_param1 *c.Char, _llcppg_param2 unsafe.Pointer, _llcppg_param3 c.SizeT) c.Int
+type HasStaticRootsFunc = func(_llcppg_param1 *c.Char, _llcppg_param2 unsafe.Pointer, _llcppg_param3 c.SizeT) c.Int
 
 // form: ((version_major<<16) | (version_minor<<8) | version_micro).
 //
-//go:linkname GC_get_version C.GC_get_version
-func GC_get_version() c.Uint
+//go:linkname GetVersion C.GC_get_version
+func GetVersion() c.Uint
 
 // Counter incremented per collection.
 //
 //go:linkname GC_gc_no C.GC_gc_no
-var GC_gc_no GC_word
+var GC_gc_no Word
 
 // Includes empty GCs at startup.
 //
-//go:linkname GC_get_gc_no C.GC_get_gc_no
-func GC_get_gc_no() GC_word
+//go:linkname GetGcNo C.GC_get_gc_no
+func GetGcNo() Word
 
 // When there is insufficient memory to satisfy
 //
 //go:linkname GC_oom_fn C.GC_oom_fn
-var GC_oom_fn GC_oom_func
+var GC_oom_fn OomFunc
 
 // acquire the GC lock (to avoid data races).
 //
-//go:linkname GC_set_oom_fn C.GC_set_oom_fn
-func GC_set_oom_fn(_llcppg_param1 GC_oom_func)
+//go:linkname SetOomFn C.GC_set_oom_fn
+func SetOomFn(_llcppg_param1 OomFunc)
 
-//go:linkname GC_get_oom_fn C.GC_get_oom_fn
-func GC_get_oom_fn() GC_oom_func
+//go:linkname GetOomFn C.GC_get_oom_fn
+func GetOomFn() OomFunc
 
 // Invoked when the heap grows or shrinks.
 //
 //go:linkname GC_on_heap_resize C.GC_on_heap_resize
-var GC_on_heap_resize GC_on_heap_resize_proc
+var GC_on_heap_resize OnHeapResizeProc
 
 // allocation lock held).  May be 0.
 //
-//go:linkname GC_set_on_heap_resize C.GC_set_on_heap_resize
-func GC_set_on_heap_resize(_llcppg_param1 GC_on_heap_resize_proc)
+//go:linkname SetOnHeapResize C.GC_set_on_heap_resize
+func SetOnHeapResize(_llcppg_param1 OnHeapResizeProc)
 
 // Both the supplied setter and the getter
 //
-//go:linkname GC_get_on_heap_resize C.GC_get_on_heap_resize
-func GC_get_on_heap_resize() GC_on_heap_resize_proc
+//go:linkname GetOnHeapResize C.GC_get_on_heap_resize
+func GetOnHeapResize() OnHeapResizeProc
 
 // stopped).  May be 0 (means no notifier).
 //
-//go:linkname GC_set_on_collection_event C.GC_set_on_collection_event
-func GC_set_on_collection_event(_llcppg_param1 GC_on_collection_event_proc)
+//go:linkname SetOnCollectionEvent C.GC_set_on_collection_event
+func SetOnCollectionEvent(_llcppg_param1 OnCollectionEventProc)
 
 // Both the supplied setter and the getter
 //
-//go:linkname GC_get_on_collection_event C.GC_get_on_collection_event
-func GC_get_on_collection_event() GC_on_collection_event_proc
+//go:linkname GetOnCollectionEvent C.GC_get_on_collection_event
+func GetOnCollectionEvent() OnCollectionEventProc
 
 // Set to true to turn on the find-leak mode
 //
@@ -219,11 +219,11 @@ var GC_find_leak c.Int
 
 // not use or need synchronization).
 //
-//go:linkname GC_set_find_leak C.GC_set_find_leak
-func GC_set_find_leak(_llcppg_param1 c.Int)
+//go:linkname SetFindLeak C.GC_set_find_leak
+func SetFindLeak(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_find_leak C.GC_get_find_leak
-func GC_get_find_leak() c.Int
+//go:linkname GetFindLeak C.GC_get_find_leak
+func GetFindLeak() c.Int
 
 // Arrange for pointers to object interiors to
 //
@@ -232,11 +232,11 @@ var GC_all_interior_pointers c.Int
 
 // pointer recognition.  Must be only 0 or 1.
 //
-//go:linkname GC_set_all_interior_pointers C.GC_set_all_interior_pointers
-func GC_set_all_interior_pointers(_llcppg_param1 c.Int)
+//go:linkname SetAllInteriorPointers C.GC_set_all_interior_pointers
+func SetAllInteriorPointers(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_all_interior_pointers C.GC_get_all_interior_pointers
-func GC_get_all_interior_pointers() c.Int
+//go:linkname GetAllInteriorPointers C.GC_get_all_interior_pointers
+func GetAllInteriorPointers() c.Int
 
 // If nonzero, finalizers will only be run in
 //
@@ -245,11 +245,11 @@ var GC_finalize_on_demand c.Int
 
 // The setter and getter are unsynchronized.
 //
-//go:linkname GC_set_finalize_on_demand C.GC_set_finalize_on_demand
-func GC_set_finalize_on_demand(_llcppg_param1 c.Int)
+//go:linkname SetFinalizeOnDemand C.GC_set_finalize_on_demand
+func SetFinalizeOnDemand(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_finalize_on_demand C.GC_get_finalize_on_demand
-func GC_get_finalize_on_demand() c.Int
+//go:linkname GetFinalizeOnDemand C.GC_get_finalize_on_demand
+func GetFinalizeOnDemand() c.Int
 
 // Mark objects reachable from finalizable
 //
@@ -258,24 +258,24 @@ var GC_java_finalization c.Int
 
 // The setter and getter are unsynchronized.
 //
-//go:linkname GC_set_java_finalization C.GC_set_java_finalization
-func GC_set_java_finalization(_llcppg_param1 c.Int)
+//go:linkname SetJavaFinalization C.GC_set_java_finalization
+func SetJavaFinalization(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_java_finalization C.GC_get_java_finalization
-func GC_get_java_finalization() c.Int
+//go:linkname GetJavaFinalization C.GC_get_java_finalization
+func GetJavaFinalization() c.Int
 
 // Invoked by the collector when there are
 //
 //go:linkname GC_finalizer_notifier C.GC_finalizer_notifier
-var GC_finalizer_notifier GC_finalizer_notifier_proc
+var GC_finalizer_notifier FinalizerNotifierProc
 
 // acquire the GC lock (to avoid data races).
 //
-//go:linkname GC_set_finalizer_notifier C.GC_set_finalizer_notifier
-func GC_set_finalizer_notifier(_llcppg_param1 GC_finalizer_notifier_proc)
+//go:linkname SetFinalizerNotifier C.GC_set_finalizer_notifier
+func SetFinalizerNotifier(_llcppg_param1 FinalizerNotifierProc)
 
-//go:linkname GC_get_finalizer_notifier C.GC_get_finalizer_notifier
-func GC_get_finalizer_notifier() GC_finalizer_notifier_proc
+//go:linkname GetFinalizerNotifier C.GC_get_finalizer_notifier
+func GetFinalizerNotifier() FinalizerNotifierProc
 
 // != 0 ==> Do not collect.  This overrides
 //
@@ -289,11 +289,11 @@ var GC_dont_expand c.Int
 
 // getter are unsynchronized.
 //
-//go:linkname GC_set_dont_expand C.GC_set_dont_expand
-func GC_set_dont_expand(_llcppg_param1 c.Int)
+//go:linkname SetDontExpand C.GC_set_dont_expand
+func SetDontExpand(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_dont_expand C.GC_get_dont_expand
-func GC_get_dont_expand() c.Int
+//go:linkname GetDontExpand C.GC_get_dont_expand
+func GetDontExpand() c.Int
 
 // Causes the non-incremental collector to use the
 //
@@ -307,24 +307,24 @@ var GC_full_freq c.Int
 
 // after the GC is put to multi-threaded mode).
 //
-//go:linkname GC_set_full_freq C.GC_set_full_freq
-func GC_set_full_freq(_llcppg_param1 c.Int)
+//go:linkname SetFullFreq C.GC_set_full_freq
+func SetFullFreq(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_full_freq C.GC_get_full_freq
-func GC_get_full_freq() c.Int
+//go:linkname GetFullFreq C.GC_get_full_freq
+func GetFullFreq() c.Int
 
 // Bytes not considered candidates for
 //
 //go:linkname GC_non_gc_bytes C.GC_non_gc_bytes
-var GC_non_gc_bytes GC_word
+var GC_non_gc_bytes Word
 
 // after the GC is put to multi-threaded mode).
 //
-//go:linkname GC_set_non_gc_bytes C.GC_set_non_gc_bytes
-func GC_set_non_gc_bytes(_llcppg_param1 GC_word)
+//go:linkname SetNonGcBytes C.GC_set_non_gc_bytes
+func SetNonGcBytes(_llcppg_param1 Word)
 
-//go:linkname GC_get_non_gc_bytes C.GC_get_non_gc_bytes
-func GC_get_non_gc_bytes() GC_word
+//go:linkname GetNonGcBytes C.GC_get_non_gc_bytes
+func GetNonGcBytes() Word
 
 // Don't register dynamic library data segments.
 //
@@ -333,37 +333,37 @@ var GC_no_dls c.Int
 
 // The setter and getter are unsynchronized.
 //
-//go:linkname GC_set_no_dls C.GC_set_no_dls
-func GC_set_no_dls(_llcppg_param1 c.Int)
+//go:linkname SetNoDls C.GC_set_no_dls
+func SetNoDls(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_no_dls C.GC_get_no_dls
-func GC_get_no_dls() c.Int
+//go:linkname GetNoDls C.GC_get_no_dls
+func GetNoDls() c.Int
 
 // We try to make sure that we allocate at
 //
 //go:linkname GC_free_space_divisor C.GC_free_space_divisor
-var GC_free_space_divisor GC_word
+var GC_free_space_divisor Word
 
 // the old value.
 //
-//go:linkname GC_set_free_space_divisor C.GC_set_free_space_divisor
-func GC_set_free_space_divisor(_llcppg_param1 GC_word)
+//go:linkname SetFreeSpaceDivisor C.GC_set_free_space_divisor
+func SetFreeSpaceDivisor(_llcppg_param1 Word)
 
-//go:linkname GC_get_free_space_divisor C.GC_get_free_space_divisor
-func GC_get_free_space_divisor() GC_word
+//go:linkname GetFreeSpaceDivisor C.GC_get_free_space_divisor
+func GetFreeSpaceDivisor() Word
 
 // The maximum number of GCs attempted before
 //
 //go:linkname GC_max_retries C.GC_max_retries
-var GC_max_retries GC_word
+var GC_max_retries Word
 
 // after the GC is put to multi-threaded mode).
 //
-//go:linkname GC_set_max_retries C.GC_set_max_retries
-func GC_set_max_retries(_llcppg_param1 GC_word)
+//go:linkname SetMaxRetries C.GC_set_max_retries
+func SetMaxRetries(_llcppg_param1 Word)
 
-//go:linkname GC_get_max_retries C.GC_get_max_retries
-func GC_get_max_retries() GC_word
+//go:linkname GetMaxRetries C.GC_get_max_retries
+func GetMaxRetries() Word
 
 // The cold end (bottom) of user stack.
 //
@@ -377,11 +377,11 @@ var GC_dont_precollect c.Int
 
 // accessed at GC initialization only).
 //
-//go:linkname GC_set_dont_precollect C.GC_set_dont_precollect
-func GC_set_dont_precollect(_llcppg_param1 c.Int)
+//go:linkname SetDontPrecollect C.GC_set_dont_precollect
+func SetDontPrecollect(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_dont_precollect C.GC_get_dont_precollect
-func GC_get_dont_precollect() c.Int
+//go:linkname GetDontPrecollect C.GC_get_dont_precollect
+func GetDontPrecollect() c.Int
 
 // If incremental collection is enabled,
 //
@@ -390,627 +390,627 @@ var GC_time_limit c.Ulong
 
 // call).
 //
-//go:linkname GC_set_time_limit C.GC_set_time_limit
-func GC_set_time_limit(_llcppg_param1 c.Ulong)
+//go:linkname SetTimeLimit C.GC_set_time_limit
+func SetTimeLimit(_llcppg_param1 c.Ulong)
 
-//go:linkname GC_get_time_limit C.GC_get_time_limit
-func GC_get_time_limit() c.Ulong
+//go:linkname GetTimeLimit C.GC_get_time_limit
+func GetTimeLimit() c.Ulong
 
 // without NO_CLOCK.
 //
-// llgo:link GC_timeval_s.GC_set_time_limit_tv C.GC_set_time_limit_tv
-func (self GC_timeval_s) GC_set_time_limit_tv() {
+// llgo:link TimevalS.SetTimeLimitTv C.GC_set_time_limit_tv
+func (self TimevalS) SetTimeLimitTv() {
 }
 
-//go:linkname GC_get_time_limit_tv C.GC_get_time_limit_tv
-func GC_get_time_limit_tv() GC_timeval_s
+//go:linkname GetTimeLimitTv C.GC_get_time_limit_tv
+func GetTimeLimitTv() TimevalS
 
 // synchronization.
 //
-//go:linkname GC_set_allocd_bytes_per_finalizer C.GC_set_allocd_bytes_per_finalizer
-func GC_set_allocd_bytes_per_finalizer(_llcppg_param1 GC_word)
+//go:linkname SetAllocdBytesPerFinalizer C.GC_set_allocd_bytes_per_finalizer
+func SetAllocdBytesPerFinalizer(_llcppg_param1 Word)
 
-//go:linkname GC_get_allocd_bytes_per_finalizer C.GC_get_allocd_bytes_per_finalizer
-func GC_get_allocd_bytes_per_finalizer() GC_word
-
-// library has been compiled without NO_CLOCK.
-//
-//go:linkname GC_start_performance_measurement C.GC_start_performance_measurement
-func GC_start_performance_measurement()
+//go:linkname GetAllocdBytesPerFinalizer C.GC_get_allocd_bytes_per_finalizer
+func GetAllocdBytesPerFinalizer() Word
 
 // library has been compiled without NO_CLOCK.
 //
-//go:linkname GC_get_full_gc_total_time C.GC_get_full_gc_total_time
-func GC_get_full_gc_total_time() c.Ulong
+//go:linkname StartPerformanceMeasurement C.GC_start_performance_measurement
+func StartPerformanceMeasurement()
+
+// library has been compiled without NO_CLOCK.
+//
+//go:linkname GetFullGcTotalTime C.GC_get_full_gc_total_time
+func GetFullGcTotalTime() c.Ulong
 
 // going to execute code on any of the GC-allocated memory objects.
 //
-//go:linkname GC_set_pages_executable C.GC_set_pages_executable
-func GC_set_pages_executable(_llcppg_param1 c.Int)
+//go:linkname SetPagesExecutable C.GC_set_pages_executable
+func SetPagesExecutable(_llcppg_param1 c.Int)
 
 // use or need synchronization (i.e. acquiring the allocator lock).
 //
-//go:linkname GC_get_pages_executable C.GC_get_pages_executable
-func GC_get_pages_executable() c.Int
+//go:linkname GetPagesExecutable C.GC_get_pages_executable
+func GetPagesExecutable() c.Int
 
 // is one.  Not synchronized.
 //
-//go:linkname GC_set_min_bytes_allocd C.GC_set_min_bytes_allocd
-func GC_set_min_bytes_allocd(_llcppg_param1 c.SizeT)
+//go:linkname SetMinBytesAllocd C.GC_set_min_bytes_allocd
+func SetMinBytesAllocd(_llcppg_param1 c.SizeT)
 
-//go:linkname GC_get_min_bytes_allocd C.GC_get_min_bytes_allocd
-func GC_get_min_bytes_allocd() c.SizeT
+//go:linkname GetMinBytesAllocd C.GC_get_min_bytes_allocd
+func GetMinBytesAllocd() c.SizeT
 
 // The value should not be zero.  Not synchronized.
 //
-//go:linkname GC_set_rate C.GC_set_rate
-func GC_set_rate(_llcppg_param1 c.Int)
+//go:linkname SetRate C.GC_set_rate
+func SetRate(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_rate C.GC_get_rate
-func GC_get_rate() c.Int
+//go:linkname GetRate C.GC_get_rate
+func GetRate() c.Int
 
 // marking.  Not synchronized.
 //
-//go:linkname GC_set_max_prior_attempts C.GC_set_max_prior_attempts
-func GC_set_max_prior_attempts(_llcppg_param1 c.Int)
+//go:linkname SetMaxPriorAttempts C.GC_set_max_prior_attempts
+func SetMaxPriorAttempts(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_max_prior_attempts C.GC_get_max_prior_attempts
-func GC_get_max_prior_attempts() c.Int
+//go:linkname GetMaxPriorAttempts C.GC_get_max_prior_attempts
+func GetMaxPriorAttempts() c.Int
 
 // and the getter acquire the GC lock (to avoid data races).
 //
-//go:linkname GC_set_disable_automatic_collection C.GC_set_disable_automatic_collection
-func GC_set_disable_automatic_collection(_llcppg_param1 c.Int)
+//go:linkname SetDisableAutomaticCollection C.GC_set_disable_automatic_collection
+func SetDisableAutomaticCollection(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_disable_automatic_collection C.GC_get_disable_automatic_collection
-func GC_get_disable_automatic_collection() c.Int
+//go:linkname GetDisableAutomaticCollection C.GC_get_disable_automatic_collection
+func GetDisableAutomaticCollection() c.Int
 
 // each fork() with the relevant GC_atfork_prepare/parent/child calls.
 //
-//go:linkname GC_set_handle_fork C.GC_set_handle_fork
-func GC_set_handle_fork(_llcppg_param1 c.Int)
+//go:linkname SetHandleFork C.GC_set_handle_fork
+func SetHandleFork(_llcppg_param1 c.Int)
 
 // Note that fork() could be called from an unregistered thread.
 //
-//go:linkname GC_atfork_prepare C.GC_atfork_prepare
-func GC_atfork_prepare()
+//go:linkname AtforkPrepare C.GC_atfork_prepare
+func AtforkPrepare()
 
-//go:linkname GC_atfork_parent C.GC_atfork_parent
-func GC_atfork_parent()
+//go:linkname AtforkParent C.GC_atfork_parent
+func AtforkParent()
 
-//go:linkname GC_atfork_child C.GC_atfork_child
-func GC_atfork_child()
+//go:linkname AtforkChild C.GC_atfork_child
+func AtforkChild()
 
 // from the main program instead.
 //
-//go:linkname GC_init C.GC_init
-func GC_init()
+//go:linkname Init C.GC_init
+func Init()
 
 // (or, at least, the initialization is in progress).
 //
-//go:linkname GC_is_init_called C.GC_is_init_called
-func GC_is_init_called() c.Int
+//go:linkname IsInitCalled C.GC_is_init_called
+func IsInitCalled() c.Int
 
 // not be called after the shutdown.  See also GC_win32_free_heap().
 //
-//go:linkname GC_deinit C.GC_deinit
-func GC_deinit()
+//go:linkname Deinit C.GC_deinit
+func Deinit()
 
 // GC_non_gc_bytes appropriately.
 //
-//go:linkname GC_malloc C.GC_malloc
-func GC_malloc(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname Malloc C.GC_malloc
+func Malloc(_llcppg_param1 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_malloc_atomic C.GC_malloc_atomic
-func GC_malloc_atomic(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname MallocAtomic C.GC_malloc_atomic
+func MallocAtomic(_llcppg_param1 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_strdup C.GC_strdup
-func GC_strdup(_llcppg_param1 *c.Char) *c.Char
+//go:linkname Strdup C.GC_strdup
+func Strdup(_llcppg_param1 *c.Char) *c.Char
 
-//go:linkname GC_strndup C.GC_strndup
-func GC_strndup(_llcppg_param1 *c.Char, _llcppg_param2 c.SizeT) *c.Char
+//go:linkname Strndup C.GC_strndup
+func Strndup(_llcppg_param1 *c.Char, _llcppg_param2 c.SizeT) *c.Char
 
-//go:linkname GC_malloc_uncollectable C.GC_malloc_uncollectable
-func GC_malloc_uncollectable(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname MallocUncollectable C.GC_malloc_uncollectable
+func MallocUncollectable(_llcppg_param1 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_malloc_stubborn C.GC_malloc_stubborn
-func GC_malloc_stubborn(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname MallocStubborn C.GC_malloc_stubborn
+func MallocStubborn(_llcppg_param1 c.SizeT) unsafe.Pointer
 
 // GC_memalign() is not well tested.
 //
-//go:linkname GC_memalign C.GC_memalign
-func GC_memalign(_llcppg_param1 c.SizeT, _llcppg_param2 c.SizeT) unsafe.Pointer
+//go:linkname Memalign C.GC_memalign
+func Memalign(_llcppg_param1 c.SizeT, _llcppg_param2 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_posix_memalign C.GC_posix_memalign
-func GC_posix_memalign(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 c.SizeT, _llcppg_param3 c.SizeT) c.Int
+//go:linkname PosixMemalign C.GC_posix_memalign
+func PosixMemalign(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 c.SizeT, _llcppg_param3 c.SizeT) c.Int
 
 // GC_free(0) is a no-op, as required by ANSI C for free.
 //
-//go:linkname GC_free C.GC_free
-func GC_free(_llcppg_param1 unsafe.Pointer)
+//go:linkname Free C.GC_free
+func Free(_llcppg_param1 unsafe.Pointer)
 
-//go:linkname GC_change_stubborn C.GC_change_stubborn
-func GC_change_stubborn(_llcppg_param1 unsafe.Pointer)
+//go:linkname ChangeStubborn C.GC_change_stubborn
+func ChangeStubborn(_llcppg_param1 unsafe.Pointer)
 
 // of the stored pointers.
 //
-//go:linkname GC_end_stubborn_change C.GC_end_stubborn_change
-func GC_end_stubborn_change(_llcppg_param1 unsafe.Pointer)
+//go:linkname EndStubbornChange C.GC_end_stubborn_change
+func EndStubbornChange(_llcppg_param1 unsafe.Pointer)
 
 // GC_free.
 //
-//go:linkname GC_base C.GC_base
-func GC_base(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
+//go:linkname Base C.GC_base
+func Base(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
 
 // or not.  It is assumed that the collector is already initialized.
 //
-//go:linkname GC_is_heap_ptr C.GC_is_heap_ptr
-func GC_is_heap_ptr(_llcppg_param1 unsafe.Pointer) c.Int
+//go:linkname IsHeapPtr C.GC_is_heap_ptr
+func IsHeapPtr(_llcppg_param1 unsafe.Pointer) c.Int
 
 // may be NULL (causing 0 to be returned).
 //
-//go:linkname GC_size C.GC_size
-func GC_size(_llcppg_param1 unsafe.Pointer) c.SizeT
+//go:linkname Size C.GC_size
+func Size(_llcppg_param1 unsafe.Pointer) c.SizeT
 
 // allocated memory.
 //
-//go:linkname GC_realloc C.GC_realloc
-func GC_realloc(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.SizeT) unsafe.Pointer
+//go:linkname Realloc C.GC_realloc
+func Realloc(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.SizeT) unsafe.Pointer
 
 // Returns 0 on failure, 1 on success.
 //
-//go:linkname GC_expand_hp C.GC_expand_hp
-func GC_expand_hp(_llcppg_param1 c.SizeT) c.Int
+//go:linkname ExpandHp C.GC_expand_hp
+func ExpandHp(_llcppg_param1 c.SizeT) c.Int
 
 // data races).
 //
-//go:linkname GC_set_max_heap_size C.GC_set_max_heap_size
-func GC_set_max_heap_size(_llcppg_param1 GC_word)
+//go:linkname SetMaxHeapSize C.GC_set_max_heap_size
+func SetMaxHeapSize(_llcppg_param1 Word)
 
 // Both section start and end are not needed to be pointer-aligned.
 //
-//go:linkname GC_exclude_static_roots C.GC_exclude_static_roots
-func GC_exclude_static_roots(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
+//go:linkname ExcludeStaticRoots C.GC_exclude_static_roots
+func ExcludeStaticRoots(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
 // Clear the number of entries in the exclusion table.  Wizards only.
 //
-//go:linkname GC_clear_exclusion_table C.GC_clear_exclusion_table
-func GC_clear_exclusion_table()
+//go:linkname ClearExclusionTable C.GC_clear_exclusion_table
+func ClearExclusionTable()
 
 // Clear the set of root segments.  Wizards only.
 //
-//go:linkname GC_clear_roots C.GC_clear_roots
-func GC_clear_roots()
+//go:linkname ClearRoots C.GC_clear_roots
+func ClearRoots()
 
 // low_address must not be greater than high_address_plus_1.
 //
-//go:linkname GC_add_roots C.GC_add_roots
-func GC_add_roots(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
+//go:linkname AddRoots C.GC_add_roots
+func AddRoots(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
 // Remove root segments located fully in the region.  Wizards only.
 //
-//go:linkname GC_remove_roots C.GC_remove_roots
-func GC_remove_roots(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
+//go:linkname RemoveRoots C.GC_remove_roots
+func RemoveRoots(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
 // arbitrary interior pointers enabled, which is now the default.
 //
-//go:linkname GC_register_displacement C.GC_register_displacement
-func GC_register_displacement(_llcppg_param1 c.SizeT)
+//go:linkname RegisterDisplacement C.GC_register_displacement
+func RegisterDisplacement(_llcppg_param1 c.SizeT)
 
 // being done.
 //
-//go:linkname GC_debug_register_displacement C.GC_debug_register_displacement
-func GC_debug_register_displacement(_llcppg_param1 c.SizeT)
+//go:linkname DebugRegisterDisplacement C.GC_debug_register_displacement
+func DebugRegisterDisplacement(_llcppg_param1 c.SizeT)
 
 // Explicitly trigger a full, world-stop collection.
 //
-//go:linkname GC_gcollect C.GC_gcollect
-func GC_gcollect()
+//go:linkname Gcollect C.GC_gcollect
+func Gcollect()
 
 // the system is running out of resources.
 //
-//go:linkname GC_gcollect_and_unmap C.GC_gcollect_and_unmap
-func GC_gcollect_and_unmap()
+//go:linkname GcollectAndUnmap C.GC_gcollect_and_unmap
+func GcollectAndUnmap()
 
-//go:linkname GC_try_to_collect C.GC_try_to_collect
-func GC_try_to_collect(_llcppg_param1 GC_stop_func) c.Int
+//go:linkname TryToCollect C.GC_try_to_collect
+func TryToCollect(_llcppg_param1 StopFunc) c.Int
 
 // Both the setter and getter acquire the GC lock to avoid data races.
 //
-//go:linkname GC_set_stop_func C.GC_set_stop_func
-func GC_set_stop_func(_llcppg_param1 GC_stop_func)
+//go:linkname SetStopFunc C.GC_set_stop_func
+func SetStopFunc(_llcppg_param1 StopFunc)
 
-//go:linkname GC_get_stop_func C.GC_get_stop_func
-func GC_get_stop_func() GC_stop_func
+//go:linkname GetStopFunc C.GC_get_stop_func
+func GetStopFunc() StopFunc
 
 // reverted back in v7.2alpha7 for the reason described.)
 //
-//go:linkname GC_get_heap_size C.GC_get_heap_size
-func GC_get_heap_size() c.SizeT
+//go:linkname GetHeapSize C.GC_get_heap_size
+func GetHeapSize() c.SizeT
 
 // getter (see GC_get_heap_size comment regarding thread-safety).
 //
-//go:linkname GC_get_free_bytes C.GC_get_free_bytes
-func GC_get_free_bytes() c.SizeT
+//go:linkname GetFreeBytes C.GC_get_free_bytes
+func GetFreeBytes() c.SizeT
 
 // getter (see GC_get_heap_size comment regarding thread-safety).
 //
-//go:linkname GC_get_unmapped_bytes C.GC_get_unmapped_bytes
-func GC_get_unmapped_bytes() c.SizeT
+//go:linkname GetUnmappedBytes C.GC_get_unmapped_bytes
+func GetUnmappedBytes() c.SizeT
 
 // regarding thread-safety).
 //
-//go:linkname GC_get_bytes_since_gc C.GC_get_bytes_since_gc
-func GC_get_bytes_since_gc() c.SizeT
+//go:linkname GetBytesSinceGc C.GC_get_bytes_since_gc
+func GetBytesSinceGc() c.SizeT
 
 // the recent collection.  This is an unsynchronized getter.
 //
-//go:linkname GC_get_expl_freed_bytes_since_gc C.GC_get_expl_freed_bytes_since_gc
-func GC_get_expl_freed_bytes_since_gc() c.SizeT
+//go:linkname GetExplFreedBytesSinceGc C.GC_get_expl_freed_bytes_since_gc
+func GetExplFreedBytesSinceGc() c.SizeT
 
 // getter (see GC_get_heap_size comment regarding thread-safety).
 //
-//go:linkname GC_get_total_bytes C.GC_get_total_bytes
-func GC_get_total_bytes() c.SizeT
+//go:linkname GetTotalBytes C.GC_get_total_bytes
+func GetTotalBytes() c.SizeT
 
 // unmapped memory.  Never decreases.  It is an unsynchronized getter.
 //
-//go:linkname GC_get_obtained_from_os_bytes C.GC_get_obtained_from_os_bytes
-func GC_get_obtained_from_os_bytes() c.SizeT
+//go:linkname GetObtainedFromOsBytes C.GC_get_obtained_from_os_bytes
+func GetObtainedFromOsBytes() c.SizeT
 
 // argument.  Returned (filled in) values are of word type.
 //
-//go:linkname GC_get_heap_usage_safe C.GC_get_heap_usage_safe
-func GC_get_heap_usage_safe(_llcppg_param1 *GC_word, _llcppg_param2 *GC_word, _llcppg_param3 *GC_word, _llcppg_param4 *GC_word, _llcppg_param5 *GC_word)
+//go:linkname GetHeapUsageSafe C.GC_get_heap_usage_safe
+func GetHeapUsageSafe(_llcppg_param1 *Word, _llcppg_param2 *Word, _llcppg_param3 *Word, _llcppg_param4 *Word, _llcppg_param5 *Word)
 
 // unknown fields, if any).
 //
-// llgo:link (*GC_prof_stats_s).GC_get_prof_stats C.GC_get_prof_stats
-func (self *GC_prof_stats_s) GC_get_prof_stats(_llcppg_param2 c.SizeT) c.SizeT {
+// llgo:link (*ProfStatsS).ProfStats C.GC_get_prof_stats
+func (self *ProfStatsS) ProfStats(_llcppg_param2 c.SizeT) c.SizeT {
 	return 0
 }
 
 // to avoid data races on multiprocessors.
 //
-//go:linkname GC_get_size_map_at C.GC_get_size_map_at
-func GC_get_size_map_at(i c.Int) c.SizeT
+//go:linkname GetSizeMapAt C.GC_get_size_map_at
+func GetSizeMapAt(i c.Int) c.SizeT
 
 // the lock.
 //
-//go:linkname GC_get_memory_use C.GC_get_memory_use
-func GC_get_memory_use() c.SizeT
+//go:linkname GetMemoryUse C.GC_get_memory_use
+func GetMemoryUse() c.SizeT
 
 // ineffective.
 //
-//go:linkname GC_disable C.GC_disable
-func GC_disable()
+//go:linkname Disable C.GC_disable
+func Disable()
 
 // (i.e., GC_dont_gc value is non-zero).  Does not acquire the lock.
 //
-//go:linkname GC_is_disabled C.GC_is_disabled
-func GC_is_disabled() c.Int
+//go:linkname IsDisabled C.GC_is_disabled
+func IsDisabled() c.Int
 
 // both functions is equal.
 //
-//go:linkname GC_enable C.GC_enable
-func GC_enable()
+//go:linkname Enable C.GC_enable
+func Enable()
 
 // compiled without SMALL_CONFIG.
 //
-//go:linkname GC_set_manual_vdb_allowed C.GC_set_manual_vdb_allowed
-func GC_set_manual_vdb_allowed(_llcppg_param1 c.Int)
+//go:linkname SetManualVdbAllowed C.GC_set_manual_vdb_allowed
+func SetManualVdbAllowed(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_manual_vdb_allowed C.GC_get_manual_vdb_allowed
-func GC_get_manual_vdb_allowed() c.Int
+//go:linkname GetManualVdbAllowed C.GC_get_manual_vdb_allowed
+func GetManualVdbAllowed() c.Int
 
 // Safe to call before GC_INIT().  Includes a  GC_init() call.
 //
-//go:linkname GC_enable_incremental C.GC_enable_incremental
-func GC_enable_incremental()
+//go:linkname EnableIncremental C.GC_enable_incremental
+func EnableIncremental()
 
 // Does not acquire the lock.
 //
-//go:linkname GC_is_incremental_mode C.GC_is_incremental_mode
-func GC_is_incremental_mode() c.Int
+//go:linkname IsIncrementalMode C.GC_is_incremental_mode
+func IsIncrementalMode() c.Int
 
 // not needing to write-protect the pages.
 //
-//go:linkname GC_incremental_protection_needs C.GC_incremental_protection_needs
-func GC_incremental_protection_needs() c.Int
+//go:linkname IncrementalProtectionNeeds C.GC_incremental_protection_needs
+func IncrementalProtectionNeeds() c.Int
 
 // No-op unless GC incremental mode is on.
 //
-//go:linkname GC_start_incremental_collection C.GC_start_incremental_collection
-func GC_start_incremental_collection()
+//go:linkname StartIncrementalCollection C.GC_start_incremental_collection
+func StartIncrementalCollection()
 
 // until it returns 0.
 //
-//go:linkname GC_collect_a_little C.GC_collect_a_little
-func GC_collect_a_little() c.Int
+//go:linkname CollectALittle C.GC_collect_a_little
+func CollectALittle() c.Int
 
 // pointers, the threshold is normally much higher.
 //
-//go:linkname GC_malloc_ignore_off_page C.GC_malloc_ignore_off_page
-func GC_malloc_ignore_off_page(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname MallocIgnoreOffPage C.GC_malloc_ignore_off_page
+func MallocIgnoreOffPage(_llcppg_param1 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_malloc_atomic_ignore_off_page C.GC_malloc_atomic_ignore_off_page
-func GC_malloc_atomic_ignore_off_page(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname MallocAtomicIgnoreOffPage C.GC_malloc_atomic_ignore_off_page
+func MallocAtomicIgnoreOffPage(_llcppg_param1 c.SizeT) unsafe.Pointer
 
 // compiled:
 //
-//go:linkname GC_malloc_atomic_uncollectable C.GC_malloc_atomic_uncollectable
-func GC_malloc_atomic_uncollectable(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname MallocAtomicUncollectable C.GC_malloc_atomic_uncollectable
+func MallocAtomicUncollectable(_llcppg_param1 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_debug_malloc_atomic_uncollectable C.GC_debug_malloc_atomic_uncollectable
-func GC_debug_malloc_atomic_uncollectable(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugMallocAtomicUncollectable C.GC_debug_malloc_atomic_uncollectable
+func DebugMallocAtomicUncollectable(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
 // objects allocated in this way for overwrites, etc.
 //
-//go:linkname GC_debug_malloc C.GC_debug_malloc
-func GC_debug_malloc(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugMalloc C.GC_debug_malloc
+func DebugMalloc(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
-//go:linkname GC_debug_malloc_atomic C.GC_debug_malloc_atomic
-func GC_debug_malloc_atomic(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugMallocAtomic C.GC_debug_malloc_atomic
+func DebugMallocAtomic(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
-//go:linkname GC_debug_strdup C.GC_debug_strdup
-func GC_debug_strdup(_llcppg_param1 *c.Char, s *c.Char, i c.Int) *c.Char
+//go:linkname DebugStrdup C.GC_debug_strdup
+func DebugStrdup(_llcppg_param1 *c.Char, s *c.Char, i c.Int) *c.Char
 
-//go:linkname GC_debug_strndup C.GC_debug_strndup
-func GC_debug_strndup(_llcppg_param1 *c.Char, _llcppg_param2 c.SizeT, s *c.Char, i c.Int) *c.Char
+//go:linkname DebugStrndup C.GC_debug_strndup
+func DebugStrndup(_llcppg_param1 *c.Char, _llcppg_param2 c.SizeT, s *c.Char, i c.Int) *c.Char
 
-//go:linkname GC_debug_malloc_uncollectable C.GC_debug_malloc_uncollectable
-func GC_debug_malloc_uncollectable(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugMallocUncollectable C.GC_debug_malloc_uncollectable
+func DebugMallocUncollectable(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
-//go:linkname GC_debug_malloc_stubborn C.GC_debug_malloc_stubborn
-func GC_debug_malloc_stubborn(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugMallocStubborn C.GC_debug_malloc_stubborn
+func DebugMallocStubborn(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
-//go:linkname GC_debug_malloc_ignore_off_page C.GC_debug_malloc_ignore_off_page
-func GC_debug_malloc_ignore_off_page(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugMallocIgnoreOffPage C.GC_debug_malloc_ignore_off_page
+func DebugMallocIgnoreOffPage(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
-//go:linkname GC_debug_malloc_atomic_ignore_off_page C.GC_debug_malloc_atomic_ignore_off_page
-func GC_debug_malloc_atomic_ignore_off_page(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugMallocAtomicIgnoreOffPage C.GC_debug_malloc_atomic_ignore_off_page
+func DebugMallocAtomicIgnoreOffPage(_llcppg_param1 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
-//go:linkname GC_debug_free C.GC_debug_free
-func GC_debug_free(_llcppg_param1 unsafe.Pointer)
+//go:linkname DebugFree C.GC_debug_free
+func DebugFree(_llcppg_param1 unsafe.Pointer)
 
-//go:linkname GC_debug_realloc C.GC_debug_realloc
-func GC_debug_realloc(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
+//go:linkname DebugRealloc C.GC_debug_realloc
+func DebugRealloc(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.SizeT, s *c.Char, i c.Int) unsafe.Pointer
 
-//go:linkname GC_debug_change_stubborn C.GC_debug_change_stubborn
-func GC_debug_change_stubborn(_llcppg_param1 unsafe.Pointer)
+//go:linkname DebugChangeStubborn C.GC_debug_change_stubborn
+func DebugChangeStubborn(_llcppg_param1 unsafe.Pointer)
 
-//go:linkname GC_debug_end_stubborn_change C.GC_debug_end_stubborn_change
-func GC_debug_end_stubborn_change(_llcppg_param1 unsafe.Pointer)
+//go:linkname DebugEndStubbornChange C.GC_debug_end_stubborn_change
+func DebugEndStubbornChange(_llcppg_param1 unsafe.Pointer)
 
 // linker to replace malloc/realloc with these.
 //
-//go:linkname GC_debug_malloc_replacement C.GC_debug_malloc_replacement
-func GC_debug_malloc_replacement(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname DebugMallocReplacement C.GC_debug_malloc_replacement
+func DebugMallocReplacement(_llcppg_param1 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_debug_realloc_replacement C.GC_debug_realloc_replacement
-func GC_debug_realloc_replacement(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.SizeT) unsafe.Pointer
+//go:linkname DebugReallocReplacement C.GC_debug_realloc_replacement
+func DebugReallocReplacement(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.SizeT) unsafe.Pointer
 
-//go:linkname GC_register_finalizer C.GC_register_finalizer
-func GC_register_finalizer(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname RegisterFinalizer C.GC_register_finalizer
+func RegisterFinalizer(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
 // When obj is no longer accessible, invoke
 //
-//go:linkname GC_debug_register_finalizer C.GC_debug_register_finalizer
-func GC_debug_register_finalizer(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname DebugRegisterFinalizer C.GC_debug_register_finalizer
+func DebugRegisterFinalizer(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
 // refers to the object itself.
 //
-//go:linkname GC_register_finalizer_ignore_self C.GC_register_finalizer_ignore_self
-func GC_register_finalizer_ignore_self(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname RegisterFinalizerIgnoreSelf C.GC_register_finalizer_ignore_self
+func RegisterFinalizerIgnoreSelf(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
-//go:linkname GC_debug_register_finalizer_ignore_self C.GC_debug_register_finalizer_ignore_self
-func GC_debug_register_finalizer_ignore_self(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname DebugRegisterFinalizerIgnoreSelf C.GC_debug_register_finalizer_ignore_self
+func DebugRegisterFinalizerIgnoreSelf(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
 // refers to the object itself.
 //
-//go:linkname GC_register_finalizer_no_order C.GC_register_finalizer_no_order
-func GC_register_finalizer_no_order(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname RegisterFinalizerNoOrder C.GC_register_finalizer_no_order
+func RegisterFinalizerNoOrder(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
-//go:linkname GC_debug_register_finalizer_no_order C.GC_debug_register_finalizer_no_order
-func GC_debug_register_finalizer_no_order(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname DebugRegisterFinalizerNoOrder C.GC_debug_register_finalizer_no_order
+func DebugRegisterFinalizerNoOrder(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
 // unordered finalization (e.g. Java, C#).
 //
-//go:linkname GC_register_finalizer_unreachable C.GC_register_finalizer_unreachable
-func GC_register_finalizer_unreachable(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname RegisterFinalizerUnreachable C.GC_register_finalizer_unreachable
+func RegisterFinalizerUnreachable(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
-//go:linkname GC_debug_register_finalizer_unreachable C.GC_debug_register_finalizer_unreachable
-func GC_debug_register_finalizer_unreachable(_llcppg_param1 unsafe.Pointer, _llcppg_param2 GC_finalization_proc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *GC_finalization_proc, _llcppg_param5 *unsafe.Pointer)
+//go:linkname DebugRegisterFinalizerUnreachable C.GC_debug_register_finalizer_unreachable
+func DebugRegisterFinalizerUnreachable(_llcppg_param1 unsafe.Pointer, _llcppg_param2 FinalizationProc, _llcppg_param3 unsafe.Pointer, _llcppg_param4 *FinalizationProc, _llcppg_param5 *unsafe.Pointer)
 
 // finalization order.
 //
-//go:linkname GC_register_disappearing_link C.GC_register_disappearing_link
-func GC_register_disappearing_link(_llcppg_param1 *unsafe.Pointer) c.Int
+//go:linkname RegisterDisappearingLink C.GC_register_disappearing_link
+func RegisterDisappearingLink(_llcppg_param1 *unsafe.Pointer) c.Int
 
 // A slight generalization of the above. *link is
 //
-//go:linkname GC_general_register_disappearing_link C.GC_general_register_disappearing_link
-func GC_general_register_disappearing_link(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 unsafe.Pointer) c.Int
+//go:linkname GeneralRegisterDisappearingLink C.GC_general_register_disappearing_link
+func GeneralRegisterDisappearingLink(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 unsafe.Pointer) c.Int
 
 // Moves a link previously registered via
 //
-//go:linkname GC_move_disappearing_link C.GC_move_disappearing_link
-func GC_move_disappearing_link(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 *unsafe.Pointer) c.Int
+//go:linkname MoveDisappearingLink C.GC_move_disappearing_link
+func MoveDisappearingLink(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 *unsafe.Pointer) c.Int
 
 // Undoes a registration by either of the above two
 //
-//go:linkname GC_unregister_disappearing_link C.GC_unregister_disappearing_link
-func GC_unregister_disappearing_link(_llcppg_param1 *unsafe.Pointer) c.Int
+//go:linkname UnregisterDisappearingLink C.GC_unregister_disappearing_link
+func UnregisterDisappearingLink(_llcppg_param1 *unsafe.Pointer) c.Int
 
 // Similar to GC_general_register_disappearing_link but
 //
-//go:linkname GC_register_long_link C.GC_register_long_link
-func GC_register_long_link(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 unsafe.Pointer) c.Int
+//go:linkname RegisterLongLink C.GC_register_long_link
+func RegisterLongLink(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 unsafe.Pointer) c.Int
 
 // Similar to GC_move_disappearing_link but for a link
 //
-//go:linkname GC_move_long_link C.GC_move_long_link
-func GC_move_long_link(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 *unsafe.Pointer) c.Int
+//go:linkname MoveLongLink C.GC_move_long_link
+func MoveLongLink(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 *unsafe.Pointer) c.Int
 
 // Similar to GC_unregister_disappearing_link but for a
 //
-//go:linkname GC_unregister_long_link C.GC_unregister_long_link
-func GC_unregister_long_link(_llcppg_param1 *unsafe.Pointer) c.Int
+//go:linkname UnregisterLongLink C.GC_unregister_long_link
+func UnregisterLongLink(_llcppg_param1 *unsafe.Pointer) c.Int
 
 // races).
 //
-//go:linkname GC_set_toggleref_func C.GC_set_toggleref_func
-func GC_set_toggleref_func(_llcppg_param1 GC_toggleref_func)
+//go:linkname SetTogglerefFunc C.GC_set_toggleref_func
+func SetTogglerefFunc(_llcppg_param1 TogglerefFunc)
 
-//go:linkname GC_get_toggleref_func C.GC_get_toggleref_func
-func GC_get_toggleref_func() GC_toggleref_func
+//go:linkname GetTogglerefFunc C.GC_get_toggleref_func
+func GetTogglerefFunc() TogglerefFunc
 
 // it failed for lack of memory.
 //
-//go:linkname GC_toggleref_add C.GC_toggleref_add
-func GC_toggleref_add(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.Int) c.Int
+//go:linkname TogglerefAdd C.GC_toggleref_add
+func TogglerefAdd(_llcppg_param1 unsafe.Pointer, _llcppg_param2 c.Int) c.Int
 
-//go:linkname GC_set_await_finalize_proc C.GC_set_await_finalize_proc
-func GC_set_await_finalize_proc(_llcppg_param1 GC_await_finalize_proc)
+//go:linkname SetAwaitFinalizeProc C.GC_set_await_finalize_proc
+func SetAwaitFinalizeProc(_llcppg_param1 AwaitFinalizeProc)
 
 // Zero means no callback.  The setter
 //
-//go:linkname GC_get_await_finalize_proc C.GC_get_await_finalize_proc
-func GC_get_await_finalize_proc() GC_await_finalize_proc
+//go:linkname GetAwaitFinalizeProc C.GC_get_await_finalize_proc
+func GetAwaitFinalizeProc() AwaitFinalizeProc
 
 // Does not use any synchronization.
 //
-//go:linkname GC_should_invoke_finalizers C.GC_should_invoke_finalizers
-func GC_should_invoke_finalizers() c.Int
+//go:linkname ShouldInvokeFinalizers C.GC_should_invoke_finalizers
+func ShouldInvokeFinalizers() c.Int
 
 // Run finalizers for all objects that are ready to
 //
-//go:linkname GC_invoke_finalizers C.GC_invoke_finalizers
-func GC_invoke_finalizers() c.Int
+//go:linkname InvokeFinalizers C.GC_invoke_finalizers
+func InvokeFinalizers() c.Int
 
 // GC_get_warn_proc returns the current warn_proc.
 //
-//go:linkname GC_set_warn_proc C.GC_set_warn_proc
-func GC_set_warn_proc(_llcppg_param1 GC_warn_proc)
+//go:linkname SetWarnProc C.GC_set_warn_proc
+func SetWarnProc(_llcppg_param1 WarnProc)
 
 // GC_get_warn_proc returns the current warn_proc.
 //
-//go:linkname GC_get_warn_proc C.GC_get_warn_proc
-func GC_get_warn_proc() GC_warn_proc
+//go:linkname GetWarnProc C.GC_get_warn_proc
+func GetWarnProc() WarnProc
 
 // to suppress all warnings (unless statistics printing is turned on).
 //
-//go:linkname GC_ignore_warn_proc C.GC_ignore_warn_proc
-func GC_ignore_warn_proc(_llcppg_param1 *c.Char, _llcppg_param2 GC_word)
+//go:linkname IgnoreWarnProc C.GC_ignore_warn_proc
+func IgnoreWarnProc(_llcppg_param1 *c.Char, _llcppg_param2 Word)
 
 // Change file descriptor of GC log.  Unavailable on some targets.
 //
-//go:linkname GC_set_log_fd C.GC_set_log_fd
-func GC_set_log_fd(_llcppg_param1 c.Int)
+//go:linkname SetLogFd C.GC_set_log_fd
+func SetLogFd(_llcppg_param1 c.Int)
 
-//go:linkname GC_set_abort_func C.GC_set_abort_func
-func GC_set_abort_func(_llcppg_param1 GC_abort_func)
+//go:linkname SetAbortFunc C.GC_set_abort_func
+func SetAbortFunc(_llcppg_param1 AbortFunc)
 
-//go:linkname GC_get_abort_func C.GC_get_abort_func
-func GC_get_abort_func() GC_abort_func
+//go:linkname GetAbortFunc C.GC_get_abort_func
+func GetAbortFunc() AbortFunc
 
 // A portable way to abort the application because of not enough memory.
 //
-//go:linkname GC_abort_on_oom C.GC_abort_on_oom
-func GC_abort_on_oom()
+//go:linkname AbortOnOom C.GC_abort_on_oom
+func AbortOnOom()
 
-//go:linkname GC_call_with_alloc_lock C.GC_call_with_alloc_lock
-func GC_call_with_alloc_lock(_llcppg_param1 GC_fn_type, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
+//go:linkname CallWithAllocLock C.GC_call_with_alloc_lock
+func CallWithAllocLock(_llcppg_param1 FnType, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
 
 // implement it everywhere.
 //
-//go:linkname GC_call_with_stack_base C.GC_call_with_stack_base
-func GC_call_with_stack_base(_llcppg_param1 GC_stack_base_func, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
+//go:linkname CallWithStackBase C.GC_call_with_stack_base
+func CallWithStackBase(_llcppg_param1 StackBaseFunc, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
 
 // perform marking in parallel).  Acquires the GC lock to avoid a race.
 //
-//go:linkname GC_start_mark_threads C.GC_start_mark_threads
-func GC_start_mark_threads()
+//go:linkname StartMarkThreads C.GC_start_mark_threads
+func StartMarkThreads()
 
 // memory and/or manipulate pointers to the garbage collected heap).
 //
-//go:linkname GC_do_blocking C.GC_do_blocking
-func GC_do_blocking(_llcppg_param1 GC_fn_type, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
+//go:linkname DoBlocking C.GC_do_blocking
+func DoBlocking(_llcppg_param1 FnType, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
 
 // provide a sufficiently accurate stack bottom.
 //
-//go:linkname GC_call_with_gc_active C.GC_call_with_gc_active
-func GC_call_with_gc_active(_llcppg_param1 GC_fn_type, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
+//go:linkname CallWithGcActive C.GC_call_with_gc_active
+func CallWithGcActive(_llcppg_param1 FnType, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
 
 // GC lock on some platforms.
 //
-// llgo:link (*GC_stack_base).GC_get_stack_base C.GC_get_stack_base
-func (self *GC_stack_base) GC_get_stack_base() c.Int {
+// llgo:link (*StackBase).Get C.GC_get_stack_base
+func (self *StackBase) Get() c.Int {
 	return 0
 }
 
 // the thread is registered.  Acquires the GC lock to avoid data races.
 //
-// llgo:link (*GC_stack_base).GC_get_my_stackbottom C.GC_get_my_stackbottom
-func (self *GC_stack_base) GC_get_my_stackbottom() unsafe.Pointer {
+// llgo:link (*StackBase).MyStackbottom C.GC_get_my_stackbottom
+func (self *StackBase) MyStackbottom() unsafe.Pointer {
 	return nil
 }
 
 // acquired in this case).
 //
-//go:linkname GC_set_stackbottom C.GC_set_stackbottom
-func GC_set_stackbottom(_llcppg_param1 unsafe.Pointer, _llcppg_param2 *GC_stack_base)
+//go:linkname SetStackbottom C.GC_set_stackbottom
+func SetStackbottom(_llcppg_param1 unsafe.Pointer, _llcppg_param2 *StackBase)
 
 // May succeed if both p and q point to between heap objects.
 //
-//go:linkname GC_same_obj C.GC_same_obj
-func GC_same_obj(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
+//go:linkname SameObj C.GC_same_obj
+func SameObj(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
 
 // call should be automatically generated.
 //
-//go:linkname GC_pre_incr C.GC_pre_incr
-func GC_pre_incr(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 c.PtrdiffT) unsafe.Pointer
+//go:linkname PreIncr C.GC_pre_incr
+func PreIncr(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 c.PtrdiffT) unsafe.Pointer
 
-//go:linkname GC_post_incr C.GC_post_incr
-func GC_post_incr(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 c.PtrdiffT) unsafe.Pointer
+//go:linkname PostIncr C.GC_post_incr
+func PostIncr(_llcppg_param1 *unsafe.Pointer, _llcppg_param2 c.PtrdiffT) unsafe.Pointer
 
 // Currently useless for multi-threaded worlds.
 //
-//go:linkname GC_is_visible C.GC_is_visible
-func GC_is_visible(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
+//go:linkname IsVisible C.GC_is_visible
+func IsVisible(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
 
 // Always returns its argument.
 //
-//go:linkname GC_is_valid_displacement C.GC_is_valid_displacement
-func GC_is_valid_displacement(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
+//go:linkname IsValidDisplacement C.GC_is_valid_displacement
+func IsValidDisplacement(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
 
 // Defined only if the library has been compiled without NO_DEBUGGING.
 //
-//go:linkname GC_dump C.GC_dump
-func GC_dump()
+//go:linkname Dump C.GC_dump
+func Dump()
 
 // Defined only if the library has been compiled without NO_DEBUGGING.
 //
-//go:linkname GC_dump_named C.GC_dump_named
-func GC_dump_named(_llcppg_param1 *c.Char)
+//go:linkname DumpNamed C.GC_dump_named
+func DumpNamed(_llcppg_param1 *c.Char)
 
 // Defined only if the library has been compiled without NO_DEBUGGING.
 //
-//go:linkname GC_dump_regions C.GC_dump_regions
-func GC_dump_regions()
+//go:linkname DumpRegions C.GC_dump_regions
+func DumpRegions()
 
 // Defined only if the library has been compiled without NO_DEBUGGING.
 //
-//go:linkname GC_dump_finalization C.GC_dump_finalization
-func GC_dump_finalization()
+//go:linkname DumpFinalization C.GC_dump_finalization
+func DumpFinalization()
 
 // (assuming p and q do not have side effects).
 //
-//go:linkname GC_ptr_store_and_dirty C.GC_ptr_store_and_dirty
-func GC_ptr_store_and_dirty(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
+//go:linkname PtrStoreAndDirty C.GC_ptr_store_and_dirty
+func PtrStoreAndDirty(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
-//go:linkname GC_debug_ptr_store_and_dirty C.GC_debug_ptr_store_and_dirty
-func GC_debug_ptr_store_and_dirty(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
+//go:linkname DebugPtrStoreAndDirty C.GC_debug_ptr_store_and_dirty
+func DebugPtrStoreAndDirty(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
 // Functions called to report pointer checking errors
 //
@@ -1025,23 +1025,23 @@ var GC_is_visible_print_proc func(_llcppg_param1 unsafe.Pointer)
 
 // allocation lock can be acquired and released many fewer times.
 //
-//go:linkname GC_malloc_many C.GC_malloc_many
-func GC_malloc_many(_llcppg_param1 c.SizeT) unsafe.Pointer
+//go:linkname MallocMany C.GC_malloc_many
+func MallocMany(_llcppg_param1 c.SizeT) unsafe.Pointer
 
 // platforms (if the filtering is unimplemented or inappropriate).
 //
-//go:linkname GC_register_has_static_roots_callback C.GC_register_has_static_roots_callback
-func GC_register_has_static_roots_callback(_llcppg_param1 GC_has_static_roots_func)
+//go:linkname RegisterHasStaticRootsCallback C.GC_register_has_static_roots_callback
+func RegisterHasStaticRootsCallback(_llcppg_param1 HasStaticRootsFunc)
 
 // getter are unsynchronized.
 //
-//go:linkname GC_set_force_unmap_on_gcollect C.GC_set_force_unmap_on_gcollect
-func GC_set_force_unmap_on_gcollect(_llcppg_param1 c.Int)
+//go:linkname SetForceUnmapOnGcollect C.GC_set_force_unmap_on_gcollect
+func SetForceUnmapOnGcollect(_llcppg_param1 c.Int)
 
-//go:linkname GC_get_force_unmap_on_gcollect C.GC_get_force_unmap_on_gcollect
-func GC_get_force_unmap_on_gcollect() c.Int
+//go:linkname GetForceUnmapOnGcollect C.GC_get_force_unmap_on_gcollect
+func GetForceUnmapOnGcollect() c.Int
 
 // This explicitly deallocates the heap.  Defined only for Windows.
 //
-//go:linkname GC_win32_free_heap C.GC_win32_free_heap
-func GC_win32_free_heap()
+//go:linkname Win32FreeHeap C.GC_win32_free_heap
+func Win32FreeHeap()
