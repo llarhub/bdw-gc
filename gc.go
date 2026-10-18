@@ -166,8 +166,8 @@ func GetVersion() c.Uint
 
 // Counter incremented per collection.
 //
-//go:linkname GC_gc_no C.GC_gc_no
-var GC_gc_no Word
+//go:linkname GcNo C.GC_gc_no
+var GcNo Word
 
 // Includes empty GCs at startup.
 //
@@ -176,8 +176,8 @@ func GetGcNo() Word
 
 // When there is insufficient memory to satisfy
 //
-//go:linkname GC_oom_fn C.GC_oom_fn
-var GC_oom_fn OomFunc
+//go:linkname OomFn C.GC_oom_fn
+var OomFn OomFunc
 
 // acquire the GC lock (to avoid data races).
 //
@@ -189,8 +189,8 @@ func GetOomFn() OomFunc
 
 // Invoked when the heap grows or shrinks.
 //
-//go:linkname GC_on_heap_resize C.GC_on_heap_resize
-var GC_on_heap_resize OnHeapResizeProc
+//go:linkname OnHeapResize C.GC_on_heap_resize
+var OnHeapResize OnHeapResizeProc
 
 // allocation lock held).  May be 0.
 //
@@ -214,8 +214,8 @@ func GetOnCollectionEvent() OnCollectionEventProc
 
 // Set to true to turn on the find-leak mode
 //
-//go:linkname GC_find_leak C.GC_find_leak
-var GC_find_leak c.Int
+//go:linkname FindLeak C.GC_find_leak
+var FindLeak c.Int
 
 // not use or need synchronization).
 //
@@ -227,8 +227,8 @@ func GetFindLeak() c.Int
 
 // Arrange for pointers to object interiors to
 //
-//go:linkname GC_all_interior_pointers C.GC_all_interior_pointers
-var GC_all_interior_pointers c.Int
+//go:linkname AllInteriorPointers C.GC_all_interior_pointers
+var AllInteriorPointers c.Int
 
 // pointer recognition.  Must be only 0 or 1.
 //
@@ -240,8 +240,8 @@ func GetAllInteriorPointers() c.Int
 
 // If nonzero, finalizers will only be run in
 //
-//go:linkname GC_finalize_on_demand C.GC_finalize_on_demand
-var GC_finalize_on_demand c.Int
+//go:linkname FinalizeOnDemand C.GC_finalize_on_demand
+var FinalizeOnDemand c.Int
 
 // The setter and getter are unsynchronized.
 //
@@ -253,8 +253,8 @@ func GetFinalizeOnDemand() c.Int
 
 // Mark objects reachable from finalizable
 //
-//go:linkname GC_java_finalization C.GC_java_finalization
-var GC_java_finalization c.Int
+//go:linkname JavaFinalization C.GC_java_finalization
+var JavaFinalization c.Int
 
 // The setter and getter are unsynchronized.
 //
@@ -266,8 +266,8 @@ func GetJavaFinalization() c.Int
 
 // Invoked by the collector when there are
 //
-//go:linkname GC_finalizer_notifier C.GC_finalizer_notifier
-var GC_finalizer_notifier FinalizerNotifierProc
+//go:linkname FinalizerNotifier C.GC_finalizer_notifier
+var FinalizerNotifier FinalizerNotifierProc
 
 // acquire the GC lock (to avoid data races).
 //
@@ -279,13 +279,13 @@ func GetFinalizerNotifier() FinalizerNotifierProc
 
 // != 0 ==> Do not collect.  This overrides
 //
-//go:linkname GC_dont_gc C.GC_dont_gc
-var GC_dont_gc c.Int
+//go:linkname DontGc C.GC_dont_gc
+var DontGc c.Int
 
 // Do not expand the heap unless explicitly
 //
-//go:linkname GC_dont_expand C.GC_dont_expand
-var GC_dont_expand c.Int
+//go:linkname DontExpand C.GC_dont_expand
+var DontExpand c.Int
 
 // getter are unsynchronized.
 //
@@ -297,13 +297,13 @@ func GetDontExpand() c.Int
 
 // Causes the non-incremental collector to use the
 //
-//go:linkname GC_use_entire_heap C.GC_use_entire_heap
-var GC_use_entire_heap c.Int
+//go:linkname UseEntireHeap C.GC_use_entire_heap
+var UseEntireHeap c.Int
 
 // Number of partial collections between
 //
-//go:linkname GC_full_freq C.GC_full_freq
-var GC_full_freq c.Int
+//go:linkname FullFreq C.GC_full_freq
+var FullFreq c.Int
 
 // after the GC is put to multi-threaded mode).
 //
@@ -315,8 +315,8 @@ func GetFullFreq() c.Int
 
 // Bytes not considered candidates for
 //
-//go:linkname GC_non_gc_bytes C.GC_non_gc_bytes
-var GC_non_gc_bytes Word
+//go:linkname NonGcBytes C.GC_non_gc_bytes
+var NonGcBytes Word
 
 // after the GC is put to multi-threaded mode).
 //
@@ -328,8 +328,8 @@ func GetNonGcBytes() Word
 
 // Don't register dynamic library data segments.
 //
-//go:linkname GC_no_dls C.GC_no_dls
-var GC_no_dls c.Int
+//go:linkname NoDls C.GC_no_dls
+var NoDls c.Int
 
 // The setter and getter are unsynchronized.
 //
@@ -341,8 +341,8 @@ func GetNoDls() c.Int
 
 // We try to make sure that we allocate at
 //
-//go:linkname GC_free_space_divisor C.GC_free_space_divisor
-var GC_free_space_divisor Word
+//go:linkname FreeSpaceDivisor C.GC_free_space_divisor
+var FreeSpaceDivisor Word
 
 // the old value.
 //
@@ -354,8 +354,8 @@ func GetFreeSpaceDivisor() Word
 
 // The maximum number of GCs attempted before
 //
-//go:linkname GC_max_retries C.GC_max_retries
-var GC_max_retries Word
+//go:linkname MaxRetries C.GC_max_retries
+var MaxRetries Word
 
 // after the GC is put to multi-threaded mode).
 //
@@ -367,13 +367,13 @@ func GetMaxRetries() Word
 
 // The cold end (bottom) of user stack.
 //
-//go:linkname GC_stackbottom C.GC_stackbottom
-var GC_stackbottom *c.Char
+//go:linkname Stackbottom C.GC_stackbottom
+var Stackbottom *c.Char
 
 // Do not collect as part of GC
 //
-//go:linkname GC_dont_precollect C.GC_dont_precollect
-var GC_dont_precollect c.Int
+//go:linkname DontPrecollect C.GC_dont_precollect
+var DontPrecollect c.Int
 
 // accessed at GC initialization only).
 //
@@ -385,8 +385,8 @@ func GetDontPrecollect() c.Int
 
 // If incremental collection is enabled,
 //
-//go:linkname GC_time_limit C.GC_time_limit
-var GC_time_limit c.Ulong
+//go:linkname TimeLimit C.GC_time_limit
+var TimeLimit c.Ulong
 
 // call).
 //
@@ -1014,14 +1014,14 @@ func DebugPtrStoreAndDirty(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.
 
 // Functions called to report pointer checking errors
 //
-//go:linkname GC_same_obj_print_proc C.GC_same_obj_print_proc
-var GC_same_obj_print_proc func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
+//go:linkname SameObjPrintProc C.GC_same_obj_print_proc
+var SameObjPrintProc func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
-//go:linkname GC_is_valid_displacement_print_proc C.GC_is_valid_displacement_print_proc
-var GC_is_valid_displacement_print_proc func(_llcppg_param1 unsafe.Pointer)
+//go:linkname IsValidDisplacementPrintProc C.GC_is_valid_displacement_print_proc
+var IsValidDisplacementPrintProc func(_llcppg_param1 unsafe.Pointer)
 
-//go:linkname GC_is_visible_print_proc C.GC_is_visible_print_proc
-var GC_is_visible_print_proc func(_llcppg_param1 unsafe.Pointer)
+//go:linkname IsVisiblePrintProc C.GC_is_visible_print_proc
+var IsVisiblePrintProc func(_llcppg_param1 unsafe.Pointer)
 
 // allocation lock can be acquired and released many fewer times.
 //
