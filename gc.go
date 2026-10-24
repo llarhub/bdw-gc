@@ -101,62 +101,62 @@ type PTR uintptr
 type Word = c.Ulong
 type SignedWord = c.Long
 
-// llgo:type C
+//llgo:cdecl
 type OomFunc = func(_llcppg_param1 c.SizeT) unsafe.Pointer
 
-// llgo:type C
+//llgo:cdecl
 type OnHeapResizeProc = func(_llcppg_param1 Word)
 
 // Invoked to indicate progress through the
 //
-// llgo:type C
+//llgo:cdecl
 type OnCollectionEventProc = func(_llcppg_param1 EventType)
 
-// llgo:type C
+//llgo:cdecl
 type FinalizerNotifierProc = func()
 
 // collections are disabled), 1 if it succeeded.
 //
-// llgo:type C
+//llgo:cdecl
 type StopFunc = func() c.Int
 
 // probably nobody else agrees with it.     Hans-J. Boehm  3/13/92
 //
-// llgo:type C
+//llgo:cdecl
 type FinalizationProc = func(_llcppg_param1 unsafe.Pointer, _llcppg_param2 unsafe.Pointer)
 
 // held (but the "world" is running).
 //
-// llgo:type C
+//llgo:cdecl
 type TogglerefFunc = func(_llcppg_param1 unsafe.Pointer) ToggleRefStatus
 
 // enqueued for finalization.
 //
-// llgo:type C
+//llgo:cdecl
 type AwaitFinalizeProc = func(_llcppg_param1 unsafe.Pointer)
 
 // returned the old warn_proc value.
 //
-// llgo:type C
+//llgo:cdecl
 type WarnProc = func(_llcppg_param1 *c.Char, _llcppg_param2 Word)
 
 // compiled without SMALL_CONFIG.
 //
-// llgo:type C
+//llgo:cdecl
 type AbortFunc = func(_llcppg_param1 *c.Char)
 
 // disguising them in this way, and may have other advantages.
 type HiddenPointer = Word
 
-// llgo:type C
+//llgo:cdecl
 type FnType = func(_llcppg_param1 unsafe.Pointer) unsafe.Pointer
 
-// llgo:type C
+//llgo:cdecl
 type StackBaseFunc = func(_llcppg_param1 *StackBase, _llcppg_param2 unsafe.Pointer) unsafe.Pointer
 
 // platform, might be called with the "world" stopped.
 //
-// llgo:type C
+//llgo:cdecl
 type HasStaticRootsFunc = func(_llcppg_param1 *c.Char, _llcppg_param2 unsafe.Pointer, _llcppg_param3 c.SizeT) c.Int
 
 // form: ((version_major<<16) | (version_minor<<8) | version_micro).
