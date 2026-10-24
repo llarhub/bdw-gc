@@ -4,13 +4,13 @@ package gc
 
 // it to keep the old-style build process working.
 const (
-	GC_TMP_VERSION_MAJOR = 8
-	GC_TMP_VERSION_MINOR = 2
+	TMP_VERSION_MAJOR = 8
+	TMP_VERSION_MINOR = 2
 	// 8.2.12
-	GC_TMP_VERSION_MICRO = 12
+	TMP_VERSION_MICRO = 12
 )
 const (
-	GC_VERSION_MAJOR = 8
-	GC_VERSION_MINOR = 2
-	GC_VERSION_MICRO = 12
+	VERSION_MAJOR = 8
+	VERSION_MINOR = 2
+	VERSION_MICRO = 12
 )

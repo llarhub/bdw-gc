@@ -8,56 +8,56 @@ import (
 )
 
 // enabled.
-const GC_TIME_UNLIMITED = 999999
+const TIME_UNLIMITED = 999999
 const (
 	// May protect non-atomic objects.
-	GC_PROTECTS_POINTER_HEAP = 1
-	GC_PROTECTS_PTRFREE_HEAP = 2
+	PROTECTS_POINTER_HEAP = 1
+	PROTECTS_PTRFREE_HEAP = 2
 	// Currently never.
-	GC_PROTECTS_STATIC_DATA = 4
+	PROTECTS_STATIC_DATA = 4
 	// Probably impractical.
-	GC_PROTECTS_STACK = 8
+	PROTECTS_STACK = 8
 )
-const GC_PROTECTS_NONE = 0
+const PROTECTS_NONE = 0
 
 // Failure due to lack of memory.
-const GC_NO_MEMORY = 2
+const NO_MEMORY = 2
 const (
-	GC_SUCCESS = 0
+	SUCCESS = 0
 	// Was already registered.
-	GC_DUPLICATE = 1
+	DUPLICATE = 1
 	// No thread support in GC.
-	GC_NO_THREADS = 2
+	NO_THREADS = 2
 )
 
 // GC_NO_THREADS is not returned by any GC function anymore.
 const (
-	GC_UNIMPLEMENTED = 3
+	UNIMPLEMENTED = 3
 	// Requested link not found (returned
-	GC_NOT_FOUND = 4
+	NOT_FOUND = 4
 )
 
 type EventType c.Uint
 
 const (
 	// COLLECTION
-	GC_EVENT_START         EventType = 0
-	GC_EVENT_MARK_START    EventType = 1
-	GC_EVENT_MARK_END      EventType = 2
-	GC_EVENT_RECLAIM_START EventType = 3
-	GC_EVENT_RECLAIM_END   EventType = 4
+	EVENT_START         EventType = 0
+	EVENT_MARK_START    EventType = 1
+	EVENT_MARK_END      EventType = 2
+	EVENT_RECLAIM_START EventType = 3
+	EVENT_RECLAIM_END   EventType = 4
 	// COLLECTION
-	GC_EVENT_END EventType = 5
+	EVENT_END EventType = 5
 	// STOPWORLD_BEGIN
-	GC_EVENT_PRE_STOP_WORLD EventType = 6
+	EVENT_PRE_STOP_WORLD EventType = 6
 	// STOPWORLD_END
-	GC_EVENT_POST_STOP_WORLD EventType = 7
+	EVENT_POST_STOP_WORLD EventType = 7
 	// STARTWORLD_BEGIN
-	GC_EVENT_PRE_START_WORLD EventType = 8
+	EVENT_PRE_START_WORLD EventType = 8
 	// STARTWORLD_END
-	GC_EVENT_POST_START_WORLD   EventType = 9
-	GC_EVENT_THREAD_SUSPENDED   EventType = 10
-	GC_EVENT_THREAD_UNSUSPENDED EventType = 11
+	EVENT_POST_START_WORLD   EventType = 9
+	EVENT_THREAD_SUSPENDED   EventType = 10
+	EVENT_THREAD_UNSUSPENDED EventType = 11
 )
 
 // A portable type definition of time with a nanosecond precision.
@@ -86,9 +86,9 @@ type ProfStatsS struct {
 type ToggleRefStatus c.Uint
 
 const (
-	GC_TOGGLE_REF_DROP   ToggleRefStatus = 0
-	GC_TOGGLE_REF_STRONG ToggleRefStatus = 1
-	GC_TOGGLE_REF_WEAK   ToggleRefStatus = 2
+	TOGGLE_REF_DROP   ToggleRefStatus = 0
+	TOGGLE_REF_STRONG ToggleRefStatus = 1
+	TOGGLE_REF_WEAK   ToggleRefStatus = 2
 )
 
 // On most platforms this contains just a single address.
